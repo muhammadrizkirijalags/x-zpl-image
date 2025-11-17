@@ -39,7 +39,7 @@ body, html {
 
 /* Original and rendered image text labels */
 .label {
-	color:			blue;
+	color:			#6495ed;
 	font-size:		125%;
 	font-weight:	bold;
 	text-align:		left;
@@ -58,7 +58,7 @@ body, html {
 	text-align:		center;
 }
 .content > * {
-	box-shadow: 0 0 0 1px blue;
+	box-shadow: 0 0 0 1px #6495ed;
 }
 /* Hidden but copy-able */
 #zpltext {
@@ -83,12 +83,23 @@ span {
 }
 /* Black threshold */
 input[type="number"] {
-	width:				4em;
+	width:				3.5em;
 	border:				1px solid #6495ED;
 	border-radius:		3px;
 	padding:			3px .75ex;
 	padding-right:		1px;
 	text-align:			right;
+    line-height:        1.5em;
+}
+input[type="radio"], input[type="checkbox"] {
+    vertical-align:     middle;
+    margin:             3px 3px 4px 5px;
+}
+label {
+    margin-right:       1.5em;
+}
+label:hover {
+    color:              #6495ed;
 }
 </style>
 <link rel="stylesheet" type="text/css" href="copyzpl.css" />
@@ -319,11 +330,11 @@ function acsToCanvas(acs, rowl) {
 <textarea rows=24 cols=112 id="zpltext" readonly></textarea>
 
 <div style="display:inline-block">
-	<div class="label" style="visibility:hidden">Original Image:</div>
+	<div class="label" style="visibility:hidden">Original Image</div>
 	<div class="content" style="visibility:hidden"><img id="image"></div>
 </div>
 <div style="display:inline-block">
-	<div class="label" style="visibility:hidden">Rendered Image:</div>
+	<div class="label" style="visibility:hidden">Rendered Image</div>
 	<div class="content" style="visibility:hidden">
 		<canvas id="canvas" width=10 height=10></canvas>
 	</div>

@@ -12,6 +12,7 @@
 		}
   }
 }(typeof self !== 'undefined' ? self : this, function () {
+"use strict";
 
 const zlib = typeof process == 'object' && typeof process.release == 'object' &&
 				process.release.name == 'node' ? require('zlib') : null;
@@ -299,7 +300,6 @@ function right(mono) {
 // empty space around the edges of the image if !notrim.
 function monochrome(rgba, width, height, black, notrim) {
 	// Convert black from percent to 0..255 value
-	let y = 0, x = 0;
 	black = 255 * black / 100;
 
 	let minx, maxx, miny, maxy;
@@ -339,9 +339,9 @@ function monochrome(rgba, width, height, black, notrim) {
 	let cy = maxy - miny + 1;
 	let buf = new Uint8Array(cx * cy);
 	let idx = 0;
-	for (y = miny; y <= maxy; y++) {
+	for (let y = miny; y <= maxy; y++) {
 		let i = (y * width + minx) * 4;
-		for (x = minx; x <= maxx; x++) {
+		for (let x = minx; x <= maxx; x++) {
 			// Alpha blend with white.
 			let a = rgba[i+3] / 255;
 			let r = rgba[i] * .3 * a + 255 * (1 - a);
@@ -426,14 +426,13 @@ function crc16(s) {
 	// This is not an accumlating crc routine.  Normally, the acc is intialized to
 	// 0xffff then inverted on each call.  We just start with 0.
 	let crc = 0;
-	let j, i, c;
 
-	for (i = 0; i < s.length; i++) {
-		c = s.charCodeAt(i);
+	for (let i = 0; i < s.length; i++) {
+		let c = s.charCodeAt(i);
 		if (c > 255) {
 			throw new RangeError();
 		}
-		j = (c ^ (crc >> 8)) & 0xFF;
+		let j = (c ^ (crc >> 8)) & 0xFF;
 		crc = crcTable[j] ^ (crc << 8);
 	}
 
