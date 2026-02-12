@@ -104,7 +104,8 @@ label:hover {
 </style>
 <link rel="stylesheet" type="text/css" href="copyzpl.css" />
 <script type="text/javascript" src="pako.js"></script>
-<script type="text/javascript" src="zpl-image.js"></script>
+<!-- <script type="text/javascript" src="zpl-image.js"></script> -->
+<script type="text/javascript" src="dist/index.iife.js"></script> 
 <script type="text/javascript">
 let _filename = '';		// value set on image drop
 window.addEventListener('load', function() {
@@ -186,10 +187,10 @@ function convertImage() {
 	let res;
 	let bmp; // actually a canvas object
     if (comp == 'Z64') {
-        res = imageToZ64(img, { black:black, rotate:rot, notrim:notrim });
+        res = ZPLImage.imageToZ64(img, { black:black, rotate:rot, notrim:notrim });
         bmp = z64ToCanvas(res.z64, res.rowlen);
     } else {
-        res = imageToACS(img, { black:black, rotate:rot, notrim:notrim });
+        res = ZPLImage.imageToACS(img, { black:black, rotate:rot, notrim:notrim });
         bmp = acsToCanvas(res.acs, res.rowlen);
     }
 	
@@ -200,10 +201,13 @@ function convertImage() {
 	cvs.getContext('2d').drawImage(bmp, 0, 0);
 
 	// Create the ZPL with a source comment
-	document.getElementById('zpltext').value = 
+	const zpltext = 
 		'^FX ' + _filename + ' (' + res.width + 'x' + res.height + 'px, ' +
 			 rot + '-Rotate, ' + black + '% Black)^FS\n' +
 		'^GFA,' + res.length + ',' + res.length + ',' + res.rowlen + ',' + (res.z64||res.acs) + '\n';
+
+		console.log({ zpltext })
+	document.getElementById('zpltext').value = zpltext
 }
 function copyZPL() {
 	let ta = document.getElementById('zpltext');

@@ -233,3 +233,20 @@ let res = rgbaToZ64(jpg.data, jpg.width, { black:51, rotate:'I' });
 
 ## MIT License
 
+
+### Package Publishing
+
+New versions of the package will be automatically deployed by Semantic Release when updating `main`.
+
+However, if you need to test how the package will behave before pushing it through the pipeline then you can use [Yalc](https://github.com/wclr/yalc). Yalc will publish your local build to your it's local package registry and allow you to consume it from any NPM or Yarn managed project.
+
+To do this:
+
+1. Install Yalc globally with `npm i yalc -g`
+2. From Vulcan:
+    1. run `npm run build` to make sure you have an up to date build
+    2. run `yalc publish` to publish your build to yalc's local package registry
+3. From your consuming project:
+    1. run `yalc add @alchemytelcosolutions/vulcan`
+
+If you do not wish to use Yalc, you can achieve the same result by using `npm pack`.
